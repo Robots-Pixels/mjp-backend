@@ -8,15 +8,15 @@ export const login = async (req, res) => {
   const { password } = req.body;
 
   try {
-    const admin = await Admin.findOne({ nom: "admin" });
+    const admin = await Admin.findOne(); 
     if (!admin) {
       return res.status(401).json({
         status: false,
-        message: 'Identifiants incorrects'
+        message: 'Aucun compte administrateur trouvé.'
       });
     }
 
-    const isValid = await bcrypt.compareSync(password, admin.password);
+    const isValid = await bcrypt.compare(password, admin.password);
     if (!isValid) {
       return res.status(401).json({
         status: false,
@@ -29,8 +29,6 @@ export const login = async (req, res) => {
       JWT_SECRET, 
       { expiresIn: '1h' }
     );
-
-    console.log(token);
 
     res.json({
       status: true,
@@ -65,6 +63,14 @@ export const adminSignUp = async (req, res) => {
   }
 
   try {
+    const existing = await Admin.findOne();
+    if (existing) {
+      return res.status(403).json({
+        status: false,
+        message: "Un compte admin existe déjà."
+      });
+    }
+
     const saltRounds = 10;
     const hashedPassword = bcrypt.hashSync(password, saltRounds);
 
@@ -77,11 +83,11 @@ export const adminSignUp = async (req, res) => {
 
     return res.status(200).json({
       status: true,
-      message: "Merci. Votre compte Admin a été créé avec succès! veillez m'avertir s'il vous plait."
+      message: "Votre compte Admin a été créé avec succès."
     });
 
   } catch (error) {
-    console.error(error); // log technique utile
+    console.error(error);
     return res.status(500).json({
       status: false,
       message: "Une erreur est survenue, veuillez réessayer."

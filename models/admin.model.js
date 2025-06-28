@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const adminSchema = new mongoose.Schema({
-  nom: String,
+  nom: {type: String, default: "admin"},
   password: String,
   createdAt: { type: Date, default: Date.now }
 });

@@ -1,30 +1,51 @@
-import mongoose from "mongoose";
 import Admin from "../models/admin.model.js";
 import bcrypt from "bcryptjs";
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = process.env.JWT_SECRET;
 
 export const login = async (req, res) => {
-  const {password} = req.body;
+  const { password } = req.body;
 
   try {
-    if (password === process.env.ADMIN_PASSWORD){
-      res.json({
-        token: process.env.ADMIN_TOKEN
-      });
-    }
-    else{
-      res.status(401).json({ 
-        status : false,
-        message: 'Mot de passe incorrect' 
+    const admin = await Admin.findOne({ nom: "admin" });
+    if (!admin) {
+      return res.status(401).json({
+        status: false,
+        message: 'Identifiants incorrects'
       });
     }
 
+    const isValid = await bcrypt.compare(password, admin.password);
+    if (!isValid) {
+      return res.status(401).json({
+        status: false,
+        message: 'Mot de passe incorrect'
+      });
+    }
+
+    const token = jwt.sign(
+      { id: admin._id, username: admin.nom }, 
+      JWT_SECRET, 
+      { expiresIn: '1h' }
+    );
+
+    console.log(token);
+
+    res.json({
+      status: true,
+      message: "Connexion réussie",
+      token
+    });
+
   } catch (err) {
-    res.status(500).json({ 
-      status : false,
-      message: 'Une erreur est survenue. Veuillez réésayer'
-  })
+    console.error(err);
+    res.status(500).json({
+      status: false,
+      message: 'Une erreur est survenue. Veuillez réessayer.'
+    });
+  }
 };
-}
 
 export const adminSignUp = async (req, res) => {
   const { password } = req.body;

@@ -40,6 +40,7 @@ export const login = async (req, res) => {
     console.error(err);
     res.status(500).json({
       status: false,
+      error: err,
       message: 'Une erreur est survenue. Veuillez réessayer.'
     });
   }

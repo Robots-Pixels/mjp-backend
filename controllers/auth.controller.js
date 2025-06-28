@@ -18,6 +18,7 @@ export const login = async (req, res) => {
 
     const isValid = await bcrypt.compare(password, admin.password);
     if (!isValid) {
+      print(isValid);
       return res.status(401).json({
         status: false,
         message: 'Mot de passe incorrect'

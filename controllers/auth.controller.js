@@ -16,7 +16,7 @@ export const login = async (req, res) => {
       });
     }
 
-    const isValid = await bcrypt.compare(password, admin.password);
+    const isValid = await bcrypt.compareSync(password, admin.password);
     if (!isValid) {
       return res.status(401).json({
         status: false,

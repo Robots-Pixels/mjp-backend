@@ -10,16 +10,18 @@ dotenv.config();
 const app = express();
 
 app.use(cors());
-app.options('*', cors()); 
+
   
 app.use(express.json());
 
 const PORT = process.env.PORT
 
-
 app.use('/api/contacts', contactRoutes);
 app.use('/api/auth', authRoutes);
 
+app.get('/test', cors(), (req, res) => {
+    res.json({message: "CORS works!"});
+  });
 
 mongoose
 .connect(process.env.MONGO_URI)

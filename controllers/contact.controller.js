@@ -1,4 +1,6 @@
 import Contact from '../models/contact.model.js';
+import Converti from '../models/converti.model.js';
+import Arrivant from '../models/arrivant.model.js';
 
 export const checkAuth  = async (req, res, next) => {
   const authHeader = req.headers.authorization || '';
@@ -100,8 +102,6 @@ export const deleteContact = async (req, res) => {
 };
 
 
-import Converti from "../models/converti.model.js";
-import Arrivant from "../models/arrivant.model.js";
 
 // ✅ Convertis
 export const addConverti = async (req, res) => {

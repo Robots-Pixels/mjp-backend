@@ -4,7 +4,7 @@ import { verifyAdminToken } from '../middlewares/verifyAdminToken.js';
 
 const router = express.Router();
 
-app.get('/test', cors(), (req, res) => {
+router.get('/test', cors(), (req, res) => {
     res.json({message: "CORS works!"});
   });
 

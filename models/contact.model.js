@@ -44,7 +44,10 @@ const contactSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+},
+
+{ timestamps: true }
+);
 
 // Empêche les doublons exacts : même nom + prénom + téléphone
 contactSchema.index({ nom: 1, prenom: 1, telephone: 1 }, { unique: true });

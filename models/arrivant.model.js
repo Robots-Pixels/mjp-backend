@@ -6,7 +6,8 @@ const arrivantSchema = new mongoose.Schema({
   profession: String,
   quartier: String,
   sexe: String,
-  telephone: { type: String, unique: true }
+  telephone: { type: String, unique: true },
+  createdAt: Date 
 });
 
 export default mongoose.model("Arrivant", arrivantSchema);

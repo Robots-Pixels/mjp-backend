@@ -2,10 +2,9 @@ import Admin from "../models/admin.model.js";
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET;
-
 export const login = async (req, res) => {
   const { password } = req.body;
+  const JWT_SECRET = process.env.JWT_SECRET;
 
   try {
     const admin = await Admin.findOne(); 

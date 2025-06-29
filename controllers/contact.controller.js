@@ -98,3 +98,49 @@ export const deleteContact = async (req, res) => {
     res.status(500).json({ error: "Erreur serveur" });
   }
 };
+
+
+import Converti from "../models/converti.model.js";
+import Arrivant from "../models/arrivant.model.js";
+
+// ✅ Convertis
+export const addConverti = async (req, res) => {
+  try {
+    const contact = new Converti(req.body);
+    await contact.save();
+    res.status(201).json({ status: true, message: "Ajouté aux convertis" });
+  } catch (err) {
+    res.status(400).json({ status: false, message: "Déjà présent ou invalide." });
+  }
+};
+
+export const listConvertis = async (req, res) => {
+  const data = await Converti.find();
+  res.json(data);
+};
+
+export const removeConverti = async (req, res) => {
+  await Converti.deleteOne({ telephone: req.body.telephone });
+  res.json({ status: true });
+};
+
+// ✅ Arrivants
+export const addArrivant = async (req, res) => {
+  try {
+    const contact = new Arrivant(req.body);
+    await contact.save();
+    res.status(201).json({ status: true, message: "Ajouté aux arrivants" });
+  } catch (err) {
+    res.status(400).json({ status: false, message: "Déjà présent ou invalide." });
+  }
+};
+
+export const listArrivants = async (req, res) => {
+  const data = await Arrivant.find();
+  res.json(data);
+};
+
+export const removeArrivant = async (req, res) => {
+  await Arrivant.deleteOne({ telephone: req.body.telephone });
+  res.json({ status: true });
+};

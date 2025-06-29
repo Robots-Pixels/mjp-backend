@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllContacts, createContact, checkAuth, deleteContact } from '../controllers/contact.controller.js';
+import { getAllContacts, createContact, deleteContact } from '../controllers/contact.controller.js';
 import { verifyAdminToken } from '../middlewares/verifyAdminToken.js';
 
 const router = express.Router();
@@ -11,15 +11,13 @@ router.post('/save', createContact);
 router.delete('/delete', verifyAdminToken, deleteContact)
 
 // Convertis
-router.post("/convertis/add", verifyAdmin, addConverti);
-router.get("/convertis", verifyAdmin, listConvertis);
-router.delete("/convertis", verifyAdmin, removeConverti);
+router.post("/convertis/add", verifyAdminToken, addConverti);
+router.get("/convertis", verifyAdminToken, listConvertis);
+router.delete("/convertis", verifyAdminToken, removeConverti);
 
 // Arrivants
-router.post("/arrivants/add", verifyAdmin, addArrivant);
-router.get("/arrivants", verifyAdmin, listArrivants);
-router.delete("/arrivants", verifyAdmin, removeArrivant);
-
-
+router.post("/arrivants/add", verifyAdminToken, addArrivant);
+router.get("/arrivants", verifyAdminToken, listArrivants);
+router.delete("/arrivants", verifyAdminToken, removeArrivant);
 
 export default router;

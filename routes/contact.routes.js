@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllContacts, createContact, deleteContact } from '../controllers/contact.controller.js';
+import { getAllContacts, createContact, deleteContact, addArrivant, addConverti, removeArrivant, removeConverti, listArrivants, listConvertis } from '../controllers/contact.controller.js';
 import { verifyAdminToken } from '../middlewares/verifyAdminToken.js';
 
 const router = express.Router();

@@ -1,6 +1,5 @@
 import express from 'express';
-import mongoose from 'mongoose';import { createProxyMiddleware } from 'http-proxy-middleware';
-
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import contactRoutes from './routes/contact.routes.js';

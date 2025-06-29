@@ -5,7 +5,6 @@ import { verifyAdminToken } from '../middlewares/verifyAdminToken.js';
 const router = express.Router();
 
 //Genral
-
 router.get('/', verifyAdminToken,  getAllContacts);
 router.post('/save', createContact);
 router.delete('/delete', verifyAdminToken, deleteContact)

@@ -8,11 +8,13 @@ import authRoutes from './routes/auth.routes.js';
 dotenv.config();
 
 const app = express();
+
 app.use(cors({
-    origin:"*",
-    methods: ["POST", "GET", "DELETE"],
-    credentials: true
+  origin: ['http://127.0.0.1:5500', 'https://mjp-signup.vercel.app', 'https://mjp-signup.vercel.app/'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
+
 app.use(express.json());
 
 const PORT = process.env.PORT
